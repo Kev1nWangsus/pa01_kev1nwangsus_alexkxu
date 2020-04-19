@@ -1,9 +1,68 @@
 //cards.h
-//Authors: Your Partner's Name and Your Name
+//Authors: Shuo Wang and Alex Xu
 //All class declarations go here
 
 #ifndef CARDS_H
 #define CARDS_H
+
+class Card
+{
+    public:
+        Card(); // constructor
+        Card(const Card& source); // copy constructor
+        ~Card(); // destructor
+
+        bool hasNext() const; 
+        Card* getNext();
+        void setNext(Card* newNext);
+        string getValue() { return value; };
+        void setValue(string cardNum);
+
+        // overloaded operators:
+        
+    private:
+        string value;
+        Card* next;
+};
+
+class CardList
+{
+    public:
+        CardList(); // constructor
+        CardList(const CardList& source); // copy constructor
+        ~CardList(); // destructor
+
+        void append(Card c); // append one card to hand (last card)
+        void remove(Card c); // remove one card from hand
+        int getLength(); // return length of the CardList
+        bool contains(); // check if the list contains target card
+        void printList();
+
+        // overloaded operators:
+
+    private:
+        Card* first;
+        Card* last;
+};
+
+class Player
+{
+    public:
+        Player(string name, CardList hand); // constructor
+        Player(const Player& source); // copy constructor
+        ~Player(); // destructor;
+        void draw();
+        void play();
+        void check();
+        void surrender();
+
+        // overloaded operators:
+
+    private:
+        string name;
+        CardList hand;
+};
+
 
 #endif
 
