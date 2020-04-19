@@ -1,2 +1,1 @@
-# pa01_kev1nwangsus_alexkxu
-pa01
+# cs24-s20-starter-code
