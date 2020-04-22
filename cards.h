@@ -5,20 +5,22 @@
 #ifndef CARDS_H
 #define CARDS_H
 
+#include <string>
+
+using namespace std;
+
 class Card
 {
     public:
-        Card(); // constructor
+        Card(string cardNum); // constructor
         Card(const Card& source); // copy constructor
         ~Card(); // destructor
 
-        bool hasNext() const; 
-        Card* getNext();
-        void setNext(Card* newNext);
-        string getValue() { return value; };
-        void setValue(string cardNum);
+        string getValue() const; // getter
+        void setValue(string cardNum); // setter
 
         // overloaded operators:
+        friend ostream& operator << (ostream& os, const Card& c1);
         
     private:
         string value;
@@ -35,8 +37,8 @@ class CardList
         CardList(const CardList& source); // copy constructor
         ~CardList(); // destructor
 
-        void append(Card c); // append one card to hand (last card)
-        void remove(Card c); // remove one card from hand
+        void append(string value); // append one card to hand (last card)
+        void remove(string value); // remove one card from hand
         int getLength(); // return length of the CardList
         bool contains(); // check if the list contains target card
         void printList();
@@ -44,8 +46,12 @@ class CardList
         // overloaded operators:
 
     private:
+        struct Card {
+            string value;
+            Card* next;
+        };
+
         Card* head;
-        Card* tail;
 };
 
 class Player
