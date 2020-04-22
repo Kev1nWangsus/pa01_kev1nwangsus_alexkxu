@@ -26,7 +26,9 @@ class Card
         string value;
         Card* next;
 
+
     friend class CardList;
+    friend class Player;
 };
 
 // non-member overloaded operators
@@ -43,26 +45,31 @@ class CardList
         void remove(Card& c); // remove one card from hand
         int getLength() const; // return length of the CardList
         bool contains(const Card& c) const; // check if the list contains target card
-        void printList();
+        void printList() const; // print the whole cardlist
+        Card* getHead() const; // return the head of the cardlist
 
         // overloaded operators:
-
+        CardList& operator = (const CardList& source);
+        
     private:
         Card* head;
+
+    friend class Player;
 };
 
 class Player
 {
     public:
-        Player(string name, CardList hand); // constructor
-        Player(const Player& source); // copy constructor
+        Player(string n, CardList& h); // constructor
+        // Player(const Player& source); // copy constructor
         ~Player(); // destructor;
-        void draw();
-        void play();
-        void check();
-        void surrender();
+        void setName(string n);
+        string getName() const;
+        void draw(string val);
+        void play(Card& c);
 
-        // overloaded operators:
+        void showHand();
+        void checkSame(Player& p);
 
     private:
         string name;

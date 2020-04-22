@@ -42,9 +42,8 @@ bool operator == (const Card& c1, const Card& c2){ // overloads ==
 }
 
 // CARDLIST FUNCTIONS
-CardList::CardList() { // constructor
-    head = 0;
-}
+
+CardList::CardList() : head{0} {} // constructor
 
 // CardList::CardList() {}
 
@@ -70,9 +69,20 @@ void CardList::append(string val) { // appends a new Card obj at the end of impl
 
 void CardList::remove(Card& c) {
     if (!head) return;
-    if ( !contains(c)) return;
+    if (!contains(c)) return;
 
     Card* n = head;
+    if (*n == c) {
+        head = n->next;
+        return;
+    }
+    while (n) {
+        if (*(n->next) == c) {
+            n->next = n->next->next;
+            return;
+        }
+        n = n->next;
+    }
 
 }
 
@@ -93,4 +103,79 @@ bool CardList::contains(const Card& c) const { // checks if an input card exists
         n = n->next;
     }
     return false;
+}
+
+void CardList::printList() const {
+    Card* n = head;
+    while(n) {
+        cout << n->value << endl;
+        n = n->next;
+    }
+}
+
+Card* CardList::getHead() const {
+    return head;
+}
+
+CardList& CardList::operator = (const CardList& source){
+    if (this == &source) return *this;
+
+    this->~CardList();
+
+    Card* tmp = source.head;
+    while (tmp) {
+        append(tmp->value);
+        tmp = tmp->next;
+    }
+    return *this;
+}
+
+// PLAYER FUNCTIONS
+Player::Player(string n, CardList& h){
+    name = n;
+    hand = h;
+}
+
+Player::~Player(){
+    name = "";
+    hand.~CardList();
+}
+
+void Player::setName(string n) {
+    name = n;
+}
+
+string Player::getName() const {
+    return name;
+}
+
+void Player::draw(string val) {
+    hand.append(val);
+}
+
+void Player::play(Card& c) {
+    cout << getName() << " picked matching card " << c << endl;
+    hand.remove(c);
+}
+
+void Player::showHand() {
+    hand.printList();
+}
+
+void Player::checkSame(Player& p) {
+    Card* n = hand.head;
+    int count = 0;
+    while (n) {
+        if (p.hand.contains(*n)){
+            if (count % 2 == 0) {
+                play(*n);
+                p.hand.remove(*n);
+            } else {
+                p.play(*n);
+                hand.remove(*n);
+            }
+            count++;
+        }
+        n = n->next;
+    }
 }

@@ -7,11 +7,6 @@
 #include <vector>
 using namespace std;
 
-int main(){
-  runAll();
-  return 0;
-}
-
 void runAll(){
   test_append();
   test_equal();
@@ -43,7 +38,7 @@ void test_card(){
 
 
 void test_append_empty_list(){ 
-// A test case for append single card node to LinkedList
+
 }
 
 void test_append_single_element_list(){ 
@@ -54,7 +49,7 @@ void test_append_single_element_list(){
 void test_equal_empty_list(){ 
   string testname = "case 0: [], []";
   CardList l1, l2;
-  assertEquals(l1.head,l2.head);
+  assertEquals(l1.getHead().getValue(), l2.getHead().getValue());
 }
 
 void test_card_operator_double_equal(){
