@@ -12,12 +12,12 @@ using namespace std;
 class Card
 {
     public:
-        Card(string cardNum); // constructor
+        Card(string val); // constructor
         Card(const Card& source); // copy constructor
         ~Card(); // destructor
 
         string getValue() const; // getter
-        void setValue(string cardNum); // setter
+        void setValue(string val); // setter
 
         // overloaded operators:
         friend ostream& operator << (ostream& os, const Card& c1);
@@ -25,6 +25,8 @@ class Card
     private:
         string value;
         Card* next;
+
+    friend class CardList;
 };
 
 // non-member overloaded operators
@@ -34,23 +36,18 @@ class CardList
 {
     public:
         CardList(); // constructor
-        CardList(const CardList& source); // copy constructor
+        // CardList(const CardList& source); // copy constructor
         ~CardList(); // destructor
 
-        void append(string value); // append one card to hand (last card)
-        void remove(string value); // remove one card from hand
-        int getLength(); // return length of the CardList
-        bool contains(); // check if the list contains target card
+        void append(string val); // append one card to hand (last card)
+        void remove(Card& c); // remove one card from hand
+        int getLength() const; // return length of the CardList
+        bool contains(const Card& c) const; // check if the list contains target card
         void printList();
 
         // overloaded operators:
 
     private:
-        struct Card {
-            string value;
-            Card* next;
-        };
-
         Card* head;
 };
 
