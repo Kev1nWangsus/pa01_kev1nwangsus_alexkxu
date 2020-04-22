@@ -1,10 +1,10 @@
 # Makefile
 CXX_FLAG = --std=c++11 -g
 
-all: testcards game
+all: game
 
-testcards: testcards.o cards.o
-	g++ $(CXX_FLAG) -o testcards testcards.o cards.o
+game: testcards.o cards.o
+	g++ $(CXX_FLAG) -o game testcards.o cards.o
 
 testcards.o: testcards.cpp
 	g++ -c $(CXX_FLAG) testcards.cpp

@@ -25,6 +25,9 @@ class Card
         Card* next;
 };
 
+// non-member overloaded operators
+bool operator == (const Card& c1, const Card& c2);
+
 class CardList
 {
     public:
@@ -41,8 +44,8 @@ class CardList
         // overloaded operators:
 
     private:
-        Card* first;
-        Card* last;
+        Card* head;
+        Card* tail;
 };
 
 class Player

@@ -53,7 +53,7 @@ void test_append_single_element_list(){
 }
 void test_equal_empty_list(){ 
   string testname = "case 0: [], []";
-  LinkedList l1, l2;
+  CardList l1, l2;
   assertEquals(l1.head,l2.head);
 }
 
