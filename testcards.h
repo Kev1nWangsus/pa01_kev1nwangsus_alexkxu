@@ -39,7 +39,7 @@ void END_TEST(string testname) {
 
 void assertEquals(string expected, string actual, string testDescription){
   if (expected == actual) {
-    cout<<"PASSED " << endl;
+    cout<<"PASSED: " << testDescription << endl;
   } else {
     cout<< "  FAILED: "<< testDescription << endl <<"   Expected: "<< expected << " Actual: " << actual << endl;
   }
@@ -47,7 +47,7 @@ void assertEquals(string expected, string actual, string testDescription){
 
 void assertEquals(int expected, int actual, string testDescription){
   if (expected == actual) {
-    cout<<"PASSED " << endl;
+    cout<<"PASSED: " << testDescription << endl;
   } else {
     cout<< "  FAILED: "<< testDescription << endl <<"   Expected: "<< expected << " Actual: " << actual << endl;
   }
@@ -56,13 +56,20 @@ void assertEquals(int expected, int actual, string testDescription){
 // You should add more assertEquals function for your classes. For example, Node/Card class
 
 void assertEquals(Card *expected, Card *actual, string testDescription){
-  if (expected == actual) {
-    cout<<"PASSED " << endl;
-  } else {
-    cout<< "  FAILED: "<< testDescription << endl <<"   Expected: "<< expected << " Actual: " << actual << endl;
-  }
+  	if (expected == actual) {
+    	cout << "PASSED: " << testDescription << endl;
+  	} else {
+    	cout << "  FAILED: "<< testDescription << endl <<"   Expected: "<< expected << " Actual: " << actual << endl;
+  	}
 }
 
-
+void assertEquals(CardList *expected, CardList *actual, string testDescription)
+{
+    if (expected == actual) {
+		cout << "PASSED: " << testDescription << endl;
+	} else {
+		cout << "  FAILED: " << testDescription << endl << "   Expected: " << expected << " Actual: " << actual << endl;
+	}
+}
 
 #endif

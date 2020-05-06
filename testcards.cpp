@@ -46,10 +46,12 @@ void test_append_single_element_list(){
     // small, fast, orthogonal (test for different cases)
 
 }
-void test_equal_empty_list(){ 
-  string testname = "case 0: [], []";
-  CardList l1, l2;
-  assertEquals(l1.getHead().getValue(), l2.getHead().getValue());
+
+void test_append_empty_list(){
+    string test = "case 0: adding {\"d 1\", \"s a\"";
+    CardList l1;
+    l1.append("d 1");
+    assertEquals(l1.getHead().getValue(), "d 1", test);
 }
 
 void test_card_operator_double_equal(){
