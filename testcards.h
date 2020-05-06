@@ -11,6 +11,7 @@
 #include <iostream>
 
 using namespace std;
+
 void runAll();
 void test_constructor();
 void test_append();
@@ -53,15 +54,15 @@ void assertEquals(int expected, int actual, string testDescription){
 }
 
 // You should add more assertEquals function for your classes. For example, Node/Card class
-/*
-void assertEquals(Node *expected, Node *actual, string testDescription){
+
+void assertEquals(Card *expected, Card *actual, string testDescription){
   if (expected == actual) {
     cout<<"PASSED " << endl;
   } else {
     cout<< "  FAILED: "<< testDescription << endl <<"   Expected: "<< expected << " Actual: " << actual << endl;
   }
 }
-*/
+
 
 
 #endif

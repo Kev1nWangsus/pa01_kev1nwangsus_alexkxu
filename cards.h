@@ -50,12 +50,16 @@ class CardList
 
         // overloaded operators:
         CardList& operator = (const CardList& source);
+        bool operator == (const CardList& cl2);
         
     private:
         Card* head;
 
     friend class Player;
 };
+
+// non-member overloaded operators
+
 
 class Player
 {

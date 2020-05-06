@@ -96,6 +96,10 @@ int CardList::getLength() const {
     return count;
 } 
 
+Card* CardList::getHead() const {
+    return head;
+}
+
 bool CardList::contains(const Card& c) const { // checks if an input card exists within implicit CardList
     Card* n = head;
     while (n) {
@@ -113,9 +117,7 @@ void CardList::printList() const {
     }
 }
 
-Card* CardList::getHead() const {
-    return head;
-}
+
 
 CardList& CardList::operator = (const CardList& source){
     if (this == &source) return *this;
@@ -128,6 +130,18 @@ CardList& CardList::operator = (const CardList& source){
         tmp = tmp->next;
     }
     return *this;
+}
+
+bool CardList::operator == (const CardList& cl2) {
+    if (getLength() != cl2.getLength()) return false;
+    Card* c1 = getHead();
+    Card* c2 = cl2.getHead();
+    while(c1 && c2) {
+        if (c1 != c2) return false;
+        c1 = c1->next;
+        c2 = c2->next;
+    }
+    return true;
 }
 
 // PLAYER FUNCTIONS
