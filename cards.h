@@ -17,22 +17,20 @@ class Card
         ~Card(); // destructor
 
         string getValue() const; // getter
+        Card* getNext() const;
         void setValue(string val); // setter
 
         // overloaded operators:
         friend ostream& operator << (ostream& os, const Card& c1);
+        friend bool operator == (const Card& c1, const Card& c2);
         
     private:
         string value;
         Card* next;
 
-
     friend class CardList;
     friend class Player;
 };
-
-// non-member overloaded operators
-bool operator == (const Card& c1, const Card& c2);
 
 class CardList
 {
@@ -50,8 +48,7 @@ class CardList
 
         // overloaded operators:
         CardList& operator = (const CardList& source);
-        bool operator == (const CardList& cl2);
-        
+
     private:
         Card* head;
 

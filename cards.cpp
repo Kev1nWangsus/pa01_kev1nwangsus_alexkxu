@@ -32,13 +32,17 @@ void Card::setValue(string val){ // setter
     value = val;
 }
 
+Card* Card::getNext() const {
+    return next;
+}
+
 ostream& operator << (ostream& os, const Card& c1){ // overloads <<
     os << c1.value;
     return os;
 }
 
 bool operator == (const Card& c1, const Card& c2){ // overloads ==
-    return c1.getValue() == c2.getValue();
+    return c1.value == c2.value;
 }
 
 // CARDLIST FUNCTIONS
@@ -92,7 +96,6 @@ void CardList::remove(Card& c) {
         }
         n = n->next;
     }
-
 }
 
 int CardList::getLength() const {
@@ -137,18 +140,6 @@ CardList& CardList::operator = (const CardList& source){
         tmp = tmp->next;
     }
     return *this;
-}
-
-bool CardList::operator == (const CardList& cl2) {
-    if (getLength() != cl2.getLength()) return false;
-    Card* c1 = getHead();
-    Card* c2 = cl2.getHead();
-    while(c1 && c2) {
-        if (c1 != c2) return false;
-        c1 = c1->next;
-        c2 = c2->next;
-    }
-    return true;
 }
 
 // PLAYER FUNCTIONS

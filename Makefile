@@ -19,5 +19,5 @@ testcards.o: testcards.cpp
 	g++ -c $(CXX_FLAG) testcards.cpp
 
 clean:
-	rm -f game *.o
+	rm -f testcards game *.o
 

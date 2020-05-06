@@ -1,6 +1,6 @@
 // testcards.h
-//Authors: Shuo Wang and Alex Xu
-//All test declarations go here
+// Authors: Shuo Wang and Alex Xu
+// All test declarations go here
 
 // This is not exhaustive list of tests. You can remove / edit tests if it doesn't suit your design but you should definitelty add more
 // You should test all possible cornere cases of your public functions
@@ -14,42 +14,28 @@ using namespace std;
 
 void runAll();
 
-void test_constructor();
-void test_copyconstructor();
-void test_append();
-void test_equal();
+// test card class
 void test_card();
-void test_destructor();
-void test_remove();
-void test_contains();
-
-void test_constructor_card();
-void test_constructor_cardlist();
-void test_constructor_player();
-
-void test_copyconstructor_card();
-void test_copyconstructor_cardlist();
-
-void test_append_empty_cardlist(); // A test case for append
-void test_append_single_element_cardlist(); // Tests cases should be independent,
-            								// small, fast, orthogonal
-
-void test_destructor_card();
-void test_destructor_cardlist();
-void test_destructor_player();
-
-void test_contains_empty_list();
-void test_contains_normal_list();
-
-void test_remove_not_contains();
-void test_remove_contains();
-
-void test_equal_empty_list(); // cardlist_operator_double_equal
-void test_equal_normal_list();
-
+void test_card_copy_constructor();
 void test_card_operator_double_equal();
-void test_card_operator_ofstream();
 
+// test cardlist class
+void test_cardlist();
+void test_cardlist_copy_constructor();
+void test_cardlist_append();
+void test_cardlist_remove();
+void test_cardlist_contains();
+void test_cardlist_assignment_operator();
+
+// test player class
+void test_player();
+void test_player_draw();
+void test_player_playCard();
+
+
+// void test_append_empty_cardlist(); // A test case for append
+// void test_append_single_element_cardlist(); // Tests cases should be independent,
+            																// small, fast, orthogonal
 
 void START_TEST(string testname){
   	cout << "Start " << testname << endl;
