@@ -164,17 +164,16 @@ void Player::showHand() {
 
 void Player::checkSame(Player& p) {
     Card* n = hand.head;
-    int count = 0;
+    bool flag = 0;
     while (n) {
         if (p.hand.contains(*n)){
-            if (count % 2 == 0) {
+            if (!flag) {
                 play(*n);
                 p.hand.remove(*n);
+                flag = 1;
             } else {
-                p.play(*n);
-                hand.remove(*n);
+                p.checkSame(*(this));
             }
-            count++;
         }
         n = n->next;
     }

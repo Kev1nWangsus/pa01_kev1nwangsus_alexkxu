@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "cards.cpp"
+#include "cards.h"
 
 using namespace std;
 
