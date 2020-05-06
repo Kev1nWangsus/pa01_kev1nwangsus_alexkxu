@@ -159,6 +159,7 @@ void Player::play(Card& c) {
 }
 
 void Player::showHand() {
+    cout << getName() << "'s cards:" << endl;
     hand.printList();
 }
 

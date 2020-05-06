@@ -45,5 +45,9 @@ int main(int argv, char** argc){
     Player p2 = {"Bob", c2};
     p1.checkSame(p2);
 
+    cout << endl;
+    p1.showHand();
+    cout << endl;
+    p2.showHand();
     return 0;
 }

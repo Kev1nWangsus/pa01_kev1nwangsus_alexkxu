@@ -71,6 +71,7 @@ class Player
         void showHand();
         void checkSame(Player& p);
 
+        friend ostream& operator << (ostream& os, const Player& p1);
     private:
         string name;
         CardList hand;
