@@ -45,7 +45,16 @@ bool operator == (const Card& c1, const Card& c2){ // overloads ==
 
 CardList::CardList() : head{0} {} // constructor
 
-// CardList::CardList() {}
+CardList::CardList(const CardList& source) { // copy constructor
+    if (!source.head) {
+        head = 0;
+    } else {
+        Card* n = source.head;
+        while (n) {
+            append(n->value);
+        }
+    }
+}
 
 CardList::~CardList() { // destructor
     Card* n = head;
@@ -117,8 +126,6 @@ void CardList::printList() const {
     }
 }
 
-
-
 CardList& CardList::operator = (const CardList& source){
     if (this == &source) return *this;
 
@@ -167,7 +174,7 @@ void Player::draw(string val) {
     hand.append(val);
 }
 
-void Player::play(Card& c) {
+void Player::playCard(Card& c) {
     cout << getName() << " picked matching card " << c << endl;
     hand.remove(c);
 }
@@ -177,17 +184,19 @@ void Player::showHand() {
     hand.printList();
 }
 
-void Player::checkSame(Player& p) {
+void Player::playWith(Player& p) {
     Card* n = hand.head;
-    bool flag = 0;
+    int turn = 1;
     while (n) {
         if (p.hand.contains(*n)){
-            if (!flag) {
-                play(*n);
+            if (turn) {
+                playCard(*n);
                 p.hand.remove(*n);
-                flag = 1;
+                turn--;
             } else {
-                p.checkSame(*(this));
+                // here the player switch his turn to another player
+                // use a recursion to represent this switch
+                p.playWith(*(this)); 
             }
         }
         n = n->next;

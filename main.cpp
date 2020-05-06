@@ -13,7 +13,7 @@ int main(int argv, char** argc){
     
     ifstream cardFile1 (argc[1]);
     ifstream cardFile2 (argc[2]);
-    string line;
+    string newCard;
 
     if (cardFile1.fail()){
         cout << "Could not open file " << argc[1];
@@ -29,23 +29,25 @@ int main(int argv, char** argc){
     // to contain two sets of cards in two input files
 
     CardList c1, c2;
+    Player p1 = {"Alice", c1};
+    Player p2 = {"Bob", c2};
     // Read each file and store cards
-    while (getline (cardFile1, line) && (line.length() > 0)){
-        c1.append(line);
+    while (getline (cardFile1, newCard) && (newCard.length() > 0)){
+        p1.draw(newCard);
     }
     cardFile1.close();
 
-    while (getline (cardFile2, line) && (line.length() > 0)){
-        c2.append(line);
+    while (getline (cardFile2, newCard) && (newCard.length() > 0)){
+        p2.draw(newCard);
     }
     cardFile2.close();
 
     // Start the game
-    Player p1 = {"Alice", c1};
-    Player p2 = {"Bob", c2};
-    p1.checkSame(p2);
-
+    p1.playWith(p2);
     cout << endl;
+
+    // End the game
+    // players show their hand
     p1.showHand();
     cout << endl;
     p2.showHand();

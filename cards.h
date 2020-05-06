@@ -38,7 +38,7 @@ class CardList
 {
     public:
         CardList(); // constructor
-        // CardList(const CardList& source); // copy constructor
+        CardList(const CardList& source); // copy constructor
         ~CardList(); // destructor
 
         void append(string val); // append one card to hand (last card)
@@ -70,10 +70,10 @@ class Player
         void setName(string n);
         string getName() const;
         void draw(string val);
-        void play(Card& c);
+        void playCard(Card& c);
 
         void showHand();
-        void checkSame(Player& p);
+        void playWith(Player& p);
 
         friend ostream& operator << (ostream& os, const Player& p1);
     private:

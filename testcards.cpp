@@ -5,35 +5,34 @@
 #include "testcards.h"
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 void runAll(){
-  test_append();
-  test_equal();
-  test_card();
+    test_append();
+    test_equal();
+    test_card();
 }
 
 void test_append(){
-  START_TEST("test_append");
-  test_append_empty_list();
-  test_append_single_element_list();
-  END_TEST("test_append");
-
+	START_TEST("test_append");
+	test_append_empty_list();
+	test_append_single_element_list();
+	END_TEST("test_append");
 }
 
 void test_equal(){
-  START_TEST("test_equal");
-  test_equal_empty_list();
-  //test_equal_single_element_list();
-  END_TEST("test_equal");
-
+	START_TEST("test_equal");
+	test_equal_empty_list();
+	//test_equal_single_element_list();
+	END_TEST("test_equal");
 }
 
 void test_card(){
-  START_TEST("test_card");
-  test_card_operator_double_equal();
-  //test_equal_single_element_list();
-  END_TEST("test_card");
+	START_TEST("test_card");
+	test_card_operator_double_equal();
+	//test_equal_single_element_list();
+	END_TEST("test_card");
 }
 
 
@@ -56,6 +55,12 @@ void test_append_empty_list(){
 
 void test_card_operator_double_equal(){
   // Test to check if == is overloaded for card
+}
+
+
+int main() {
+	runAll();
+	return 0;
 }
 
 

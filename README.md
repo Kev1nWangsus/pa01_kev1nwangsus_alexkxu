@@ -1,1 +1,3 @@
-# cs24-s20-starter-code
+# pa01_kev1nwangsus_alexkxu
+
+PA01 Card Game
