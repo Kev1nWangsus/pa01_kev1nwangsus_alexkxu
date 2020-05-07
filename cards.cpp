@@ -199,13 +199,13 @@ void Player::playWith(Player& p) {
     int turn = 1;
     while (matching_card != "") {
         if (turn) {
-            cout << getName() << " picked a matching card " << matching_card << endl;
+            cout << getName() << " picked matching card " << matching_card << endl;
             hand.remove(matching_card);
             p.hand.remove(matching_card);
             matching_card = p.search(*this);
             turn--;
         } else {
-            cout << p.getName() << " picked a matching card " << matching_card << endl;
+            cout << p.getName() << " picked matching card " << matching_card << endl;
             hand.remove(matching_card);
             p.hand.remove(matching_card);
             matching_card = search(p);
