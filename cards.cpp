@@ -73,6 +73,10 @@ void CardList::append(string val) { // appends a new Card obj at the end of impl
     if (head == 0) { 
         head = new Card(val);
     }
+    else if (contains(val)) {
+        cout << "hand already contains said card" << endl;
+        return;
+    }
     else {
         Card *n = head;
         while (n->next) { n = n->next; }
@@ -175,8 +179,10 @@ void Player::draw(string val) {
 }
 
 void Player::playCard(Card& c) {
-    cout << getName() << " picked matching card " << c << endl;
-    hand.remove(c->value);
+    if (hand.contains(c.value)) {
+        cout << getName() << " picked matching card " << c << endl;
+        hand.remove(c.value);
+    }
 }
 
 void Player::showHand() {
@@ -188,10 +194,10 @@ void Player::playWith(Player& p) {
     Card* n = hand.head;
     int turn = 1;
     while (n) {
-        if (p.hand.contains(n->value)){
+        if (p.hand.contains(n.value)){
             if (turn) {
                 playCard(*n);
-                p.hand.remove(n->value);
+                p.hand.remove(n.value);
                 turn--;
             } else {
                 // here the player switch his turn to another player

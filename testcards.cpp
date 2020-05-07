@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cassert>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
@@ -113,18 +114,35 @@ void test_cardlist_remove() {
     // honestly this first one is fine as long as nothing crashes
     string testname_1 = "remove from empty list";
     Cardlist cl1;
-    Card c1;
-    cl1.remove(c1);
-    assertEquals(cl1.getHead(), NULL, testname_1);
+    assertEquals(cl1.remove("s a"), false, testname_1);
 
-    string testname_2 = "remove from single element list";
+    string testname_2 = "remove head from single element list";
     cl1.append("d j");
-    cl1.remove(cl1.getHead()); 
-    assertEquals(c1.contains(
+    cl1.remove("d j"); 
+    assertEquals(cl1.contains("d j"), false, testname_2);
+
+    string testname_3 = "remove card from list";
+    cl1.append("d 5");
+    cl1.append("d 6");
+    cl1.append("s 4");
+    cl1.remove("d 6");
+    assertEquals(cl1.contains("d 6"), false, testname_3);
 }
 
 void test_cardlist_contains() {
+    string testname_1 = "empty list";
+    Cardlist cl1;
+    assertEquals(cl1.contains("s a"), false, testname_1);
 
+    string testname_2 = "1-element list";
+    cl1.append("s a");
+    assertEquals(cl1.contains("s a"), true, testname_2);
+
+    string testname_2 = "multi-element list";
+    cl1.append("d 5");
+    cl1.append("c 3");
+    cl1.append("h a");
+    assertEquals(cl1.contains("c 5"), false, testname_3);
 }
 
 void test_cardlist_assignment_operator() {
@@ -147,11 +165,40 @@ void test_cardlist_assignment_operator() {
 
 // player
 void test_player_draw() {
+    string testname_1 = "drawing into empty hand";
+    Cardlist cl1;
+    Player alex("Alex", cl1);
+    alex.draw("s a");
+    assertEquals(alex.hand.contains("s a"), true, testname_1);
 
+    string testname_2 = "drawing into non-empty hand";
+    alex.draw("h k");
+    assertEquals(alex.hand.contains("h k"), true, testname_2);
+
+    string testname_3 = "drawing duplicate into hand";
+    alex.draw("h k");
+    assertEquals(alex.hand.head->next->next, NULL, testname_3);
 }
 
 void test_player_playCard() {
+    // testname_1 is fine as long as it doesn't crash
+    string testname_1 = "playing from empty hand";
+    Cardlist cl1;
+    Player kevin("Kevin", cl1);
+    kevin.playCard(kevin.hand.head);
+    assertEquals(kevin.hand.head, NULL, testname_1);
 
+    string testname_2 = "playing from 1-element hand";
+    kevin.draw("s a");
+    kevin.playCard(kevin.hand.head);
+    assertEquals(kevin.hand.contains("s a"), false, testname_2);
+
+    string testname_3 = "playing from multi-element hand";
+    kevin.draw("s a");
+    kevin.draw("h k");
+    kevin.draw("d j");
+    kevin.playCard(kevin.hand.head->next);
+    assertEquals(kevin.hand.contains("h k"), false, testname_3);
 }
 
 

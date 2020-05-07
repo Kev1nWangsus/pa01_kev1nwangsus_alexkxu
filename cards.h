@@ -69,7 +69,7 @@ class Player
         void setName(string n);
         string getName() const;
         void draw(string val);
-        void playCard(Card& c);
+        void playCard(string val);
 
         void showHand();
         void playWith(Player& p);
