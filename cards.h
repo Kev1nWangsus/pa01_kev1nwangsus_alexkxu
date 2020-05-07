@@ -46,11 +46,12 @@ class CardList
 
         int getLength() const;           // return length of the CardList
         bool contains(string val) const; // check if the list contains target card
-        void printList() const;          // print the whole cardlist
         Card* getHead() const;           // return the head of the cardlist
 
         // overloaded operators:
+        friend ostream& operator << (ostream& os, const CardList& cl1); // print cardlist 
         CardList& operator = (const CardList& source); // copy assignment
+
 
     private:
         Card* head;

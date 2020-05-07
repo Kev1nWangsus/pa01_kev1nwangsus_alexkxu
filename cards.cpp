@@ -128,12 +128,13 @@ bool CardList::contains(string val) const {
     return false;
 }
 
-void CardList::printList() const {
-    Card* n = head;
+ostream& operator << (ostream& os, const CardList& cl1) {
+    Card* n = cl1.head;
     while(n) {
-        cout << n->value << endl;
-        n = n->next;
+        os << n->getValue() << endl;
+        n = n->getNext();
     }
+    return os;
 }
 
 CardList& CardList::operator = (const CardList& source) {
@@ -193,7 +194,7 @@ string Player::search(Player& p) {
 
 void Player::showHand() {
     cout << getName() << "'s cards:" << endl;
-    hand.printList();
+    cout << hand;
 }
 
 void Player::playWith(Player& p) {
