@@ -40,9 +40,11 @@ class CardList
         ~CardList(); // destructor
 
         void append(string val); // append one card to hand (last card)
-        void remove(Card& c); // remove one card from hand
+        bool remove(string val); // remove one card from hand,
+                                 // returns true if list contained card and 
+                                 // card was removed, returns false otherwise
         int getLength() const; // return length of the CardList
-        bool contains(const Card& c) const; // check if the list contains target card
+        bool contains(string val) const; // check if the list contains target card
         void printList() const; // print the whole cardlist
         Card* getHead() const; // return the head of the cardlist
 

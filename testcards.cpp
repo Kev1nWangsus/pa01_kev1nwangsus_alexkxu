@@ -95,7 +95,7 @@ void test_card_operator_double_equal() {
 
 // cardlist
 void test_cardlist_copy_constructor() {
-
+    
 }
 
 void test_cardlist_append() { 
@@ -110,7 +110,17 @@ void test_cardlist_append() {
 }
 
 void test_cardlist_remove() {
+    // honestly this first one is fine as long as nothing crashes
+    string testname_1 = "remove from empty list";
+    Cardlist cl1;
+    Card c1;
+    cl1.remove(c1);
+    assertEquals(cl1.getHead(), NULL, testname_1);
 
+    string testname_2 = "remove from single element list";
+    cl1.append("d j");
+    cl1.remove(cl1.getHead()); 
+    assertEquals(c1.contains(
 }
 
 void test_cardlist_contains() {

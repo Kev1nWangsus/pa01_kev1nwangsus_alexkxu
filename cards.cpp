@@ -80,22 +80,31 @@ void CardList::append(string val) { // appends a new Card obj at the end of impl
     }
 }
 
-void CardList::remove(Card& c) {
-    if (!head) return;
-    if (!contains(c)) return;
+bool CardList::remove(string val) {
+    if (!head) return false;
+    if (!contains(val)) return false;
+
+    if (head->value == val) {
+        if (head->next == NULL) { 
+            head = nullptr;
+        }
+        else {
+            Card* tmp = head;
+            head = head->next;
+            delete tmp;
+        }
+        return true;
+    }
 
     Card* n = head;
-    if (*n == c) {
-        head = n->next;
-        return;
-    }
-    while (n) {
-        if (*(n->next) == c) {
-            n->next = n->next->next;
-            return;
-        }
+    // this loop sets n to the node BEFORE the removed one
+    while (n->next && (n->next->value != val)) {
         n = n->next;
     }
+
+    n->next = n->next->next;
+    delete n;
+    return true;
 }
 
 int CardList::getLength() const {
@@ -112,10 +121,10 @@ Card* CardList::getHead() const {
     return head;
 }
 
-bool CardList::contains(const Card& c) const { // checks if an input card exists within implicit CardList
+bool CardList::contains(string val) const { // checks if an input card exists within implicit CardList
     Card* n = head;
     while (n) {
-        if (*n == c) return true;
+        if (n->value == val) return true;
         n = n->next;
     }
     return false;
@@ -167,7 +176,7 @@ void Player::draw(string val) {
 
 void Player::playCard(Card& c) {
     cout << getName() << " picked matching card " << c << endl;
-    hand.remove(c);
+    hand.remove(c->value);
 }
 
 void Player::showHand() {
@@ -179,10 +188,10 @@ void Player::playWith(Player& p) {
     Card* n = hand.head;
     int turn = 1;
     while (n) {
-        if (p.hand.contains(*n)){
+        if (p.hand.contains(n->value)){
             if (turn) {
                 playCard(*n);
-                p.hand.remove(*n);
+                p.hand.remove(n->value);
                 turn--;
             } else {
                 // here the player switch his turn to another player
