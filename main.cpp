@@ -13,7 +13,7 @@ int main(int argv, char** argc){
     
     ifstream cardFile1 (argc[1]);
     ifstream cardFile2 (argc[2]);
-    string newCard;
+    string line;
 
     if (cardFile1.fail()){
         cout << "Could not open file " << argc[1];
@@ -28,19 +28,22 @@ int main(int argv, char** argc){
     // Create two objects of the class you defined 
     // to contain two sets of cards in two input files
 
-    CardList c1, c2;
-    Player p1 = {"Alice", c1};
-    Player p2 = {"Bob", c2};
+    CardList cl1, cl2;
+    Player p1 = {"Alice", cl1};
+    Player p2 = {"Bob", cl2};
     // Read each file and store cards
-    while (getline (cardFile1, newCard) && (newCard.length() > 0)){
-        p1.draw(newCard);
+    while (getline (cardFile1, line) && (line.length() > 0)){
+        Card c{line};
+        p1.draw(c);
     }
     cardFile1.close();
 
-    while (getline (cardFile2, newCard) && (newCard.length() > 0)){
-        p2.draw(newCard);
+    while (getline (cardFile2, line) && (line.length() > 0)){
+        Card c{line};
+        p2.draw(c);
     }
     cardFile2.close();
+
 
     // Start the game
     p1.playWith(p2);

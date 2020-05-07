@@ -40,7 +40,7 @@ class CardList
         ~CardList(); // destructor
 
         void append(string val); // append one card to hand (last card)
-        bool remove(string val); // remove one card from hand,
+        void remove(string val); // remove one card from hand,
                                  // returns true if list contained card and 
                                  // card was removed, returns false otherwise
         int getLength() const; // return length of the CardList
@@ -66,11 +66,14 @@ class Player
         Player(string n, CardList& h); // constructor
         // Player(const Player& source); // copy constructor
         ~Player(); // destructor;
-        void setName(string n);
         string getName() const;
-        void draw(string val);
-        void playCard(string val);
-
+        CardList getHand() const;
+        void setName(string n);
+        
+        void draw(Card& c);
+        void playCard(Card &c);
+        
+        string search(Player& p);
         void showHand();
         void playWith(Player& p);
 

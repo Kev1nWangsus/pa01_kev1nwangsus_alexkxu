@@ -50,13 +50,15 @@ bool operator == (const Card& c1, const Card& c2){ // overloads ==
 CardList::CardList() : head{0} {} // constructor
 
 CardList::CardList(const CardList& source) { // copy constructor
-    if (!source.head) {
-        head = 0;
-    } else {
-        Card* n = source.head;
-        while (n) {
-            append(n->value);
-        }
+    if (!source.head) return;
+    
+    Card* n = source.head;
+    head = new Card{n->value};
+
+    n = n->next;
+    while (n) {
+        append(n->value);
+        n = n->next;
     }
 }
 
@@ -70,51 +72,43 @@ CardList::~CardList() { // destructor
 }
 
 void CardList::append(string val) { // appends a new Card obj at the end of implicit CardList
-    if (head == 0) { 
-        head = new Card(val);
-    }
-    else if (contains(val)) {
-        cout << "hand already contains said card" << endl;
-        return;
+    if (!head) { 
+        head = new Card{val};
     }
     else {
         Card *n = head;
         while (n->next) { n = n->next; }
-        n->next = new Card(val);
+        Card *c = new Card{val};
+        n->next = c;
     }
 }
 
-bool CardList::remove(string val) {
-    if (!head) return false;
-    if (!contains(val)) return false;
-
-    if (head->value == val) {
-        if (head->next == NULL) { 
-            head = nullptr;
-        }
-        else {
-            Card* tmp = head;
-            head = head->next;
-            delete tmp;
-        }
-        return true;
-    }
+void CardList::remove(string val) {
+    if (!head) return;
+    if (!contains(val)) return;
 
     Card* n = head;
-    // this loop sets n to the node BEFORE the removed one
-    while (n->next && (n->next->value != val)) {
+    if (n->value == val) {
+        n = n->next;
+        delete head; 
+        head = n;
+        return;
+    }
+    while (n->next) {
+        if (n->next->value == val) {
+            Card* tmp = n->next;
+            n->next = n->next->next;
+            delete tmp;
+            return;
+        }
         n = n->next;
     }
-
-    n->next = n->next->next;
-    delete n;
-    return true;
 }
 
 int CardList::getLength() const {
     int count = 0;
     Card* n = head;
-    while (n) {
+    while (n != nullptr) {
         count++; 
         n = n->next;
     }
@@ -166,23 +160,33 @@ Player::~Player(){
     hand.~CardList();
 }
 
-void Player::setName(string n) {
-    name = n;
-}
-
 string Player::getName() const {
     return name;
 }
 
-void Player::draw(string val) {
-    hand.append(val);
+CardList Player::getHand() const {
+    return hand;
+}
+
+void Player::setName(string n) {
+    name = n;
+}
+
+void Player::draw(Card& c) {
+    hand.append(c.value);
 }
 
 void Player::playCard(Card& c) {
-    if (hand.contains(c.value)) {
-        cout << getName() << " picked matching card " << c << endl;
-        hand.remove(c.value);
+    hand.remove(c.value);
+}
+
+string Player::search(Player& p) {
+    Card* n = hand.head;
+    while (n) {
+        if (p.hand.contains(n->value)) return n->value;
+        n = n->next;
     }
+    return "";
 }
 
 void Player::showHand() {
@@ -191,20 +195,21 @@ void Player::showHand() {
 }
 
 void Player::playWith(Player& p) {
-    Card* n = hand.head;
+    string matching_card = search(p);
     int turn = 1;
-    while (n) {
-        if (p.hand.contains(n.value)){
-            if (turn) {
-                playCard(*n);
-                p.hand.remove(n.value);
-                turn--;
-            } else {
-                // here the player switch his turn to another player
-                // use a recursion to represent this switch
-                p.playWith(*(this)); 
-            }
+    while (matching_card != "") {
+        if (turn) {
+            cout << getName() << " picked a matching card " << matching_card << endl;
+            hand.remove(matching_card);
+            p.hand.remove(matching_card);
+            matching_card = p.search(*this);
+            turn--;
+        } else {
+            cout << p.getName() << " picked a matching card " << matching_card << endl;
+            hand.remove(matching_card);
+            p.hand.remove(matching_card);
+            matching_card = search(p);
+            turn++;
         }
-        n = n->next;
     }
 }

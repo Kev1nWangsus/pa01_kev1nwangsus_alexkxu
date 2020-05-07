@@ -31,11 +31,8 @@ void test_cardlist_assignment_operator();
 void test_player();
 void test_player_draw();
 void test_player_playCard();
+void test_player_search();
 
-
-// void test_append_empty_cardlist(); // A test case for append
-// void test_append_single_element_cardlist(); // Tests cases should be independent,
-            																// small, fast, orthogonal
 
 void START_TEST(string testname){
   	cout << "Start " << testname << endl;
