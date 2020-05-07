@@ -1,34 +1,34 @@
-//cards.cpp
-//Authors: Shuo Wang and Alex Xu
-//Implementation of the classes defined in cards.h
+// cards.cpp
+// Authors: Shuo Wang and Alex Xu
+// Implementation of the classes defined in cards.h
 
-#include <iostream>
 #include "cards.h"
+#include <iostream>
 #include <string>
 
 using namespace std;
 
 // CARD FUNCTIONS
-Card::Card(string cardNum) { // constructor
-    value = cardNum;
+Card::Card(string val) {
+    value = val;
     next = 0;
 };
 
-Card::Card(const Card& source) { // copy constructor
+Card::Card(const Card& source) {
     value = source.value;
     next = source.next;
 }
 
-Card::~Card() { // destructor
+Card::~Card() {
     value = ""; 
     next = 0;
 }
 
-string Card::getValue() const { // getter
+string Card::getValue() const {
     return value;
 }
 
-void Card::setValue(string val){ // setter
+void Card::setValue(string val){
     value = val;
 }
 
@@ -36,20 +36,19 @@ Card* Card::getNext() const {
     return next;
 }
 
-ostream& operator << (ostream& os, const Card& c1){ // overloads <<
+ostream& operator << (ostream& os, const Card& c1) {
     os << c1.value;
     return os;
 }
 
-bool operator == (const Card& c1, const Card& c2){ // overloads ==
+bool operator == (const Card& c1, const Card& c2) {
     return c1.value == c2.value;
 }
 
 // CARDLIST FUNCTIONS
+CardList::CardList() : head{0} {} 
 
-CardList::CardList() : head{0} {} // constructor
-
-CardList::CardList(const CardList& source) { // copy constructor
+CardList::CardList(const CardList& source) {
     if (!source.head) return;
     
     Card* n = source.head;
@@ -62,7 +61,7 @@ CardList::CardList(const CardList& source) { // copy constructor
     }
 }
 
-CardList::~CardList() { // destructor
+CardList::~CardList() { 
     Card* n = head;
     while (n) {
         n = n->next;
@@ -71,7 +70,7 @@ CardList::~CardList() { // destructor
     }
 }
 
-void CardList::append(string val) { // appends a new Card obj at the end of implicit CardList
+void CardList::append(string val) {
     if (!head) { 
         head = new Card{val};
     }
@@ -94,6 +93,7 @@ void CardList::remove(string val) {
         head = n;
         return;
     }
+    
     while (n->next) {
         if (n->next->value == val) {
             Card* tmp = n->next;
@@ -119,7 +119,7 @@ Card* CardList::getHead() const {
     return head;
 }
 
-bool CardList::contains(string val) const { // checks if an input card exists within implicit CardList
+bool CardList::contains(string val) const {
     Card* n = head;
     while (n) {
         if (n->value == val) return true;
@@ -136,7 +136,7 @@ void CardList::printList() const {
     }
 }
 
-CardList& CardList::operator = (const CardList& source){
+CardList& CardList::operator = (const CardList& source) {
     if (this == &source) return *this;
 
     this->~CardList();
@@ -150,7 +150,7 @@ CardList& CardList::operator = (const CardList& source){
 }
 
 // PLAYER FUNCTIONS
-Player::Player(string n, CardList& h){
+Player::Player(string n, CardList& h) {
     name = n;
     hand = h;
 }
@@ -183,7 +183,9 @@ void Player::playCard(Card& c) {
 string Player::search(Player& p) {
     Card* n = hand.head;
     while (n) {
-        if (p.hand.contains(n->value)) return n->value;
+        if (p.hand.contains(n->value)) {
+            return n->value;
+        }
         n = n->next;
     }
     return "";

@@ -34,7 +34,7 @@ int main(int argv, char** argc){
     // Read each file and store cards
     while (getline (cardFile1, line) && (line.length() > 0)){
         Card c{line};
-        p1.draw(c);
+        p1.draw(c); 
     }
     cardFile1.close();
 
@@ -46,7 +46,8 @@ int main(int argv, char** argc){
 
 
     // Start the game
-    p1.playWith(p2);
+    p1.playWith(p2); // auto-finding same card algorithm
+                     // and remove the same ones from hand
     cout << endl;
 
     // End the game
